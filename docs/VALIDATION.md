@@ -1,3 +1,16 @@
+# FDD callout and homepage link alignment — 7 October 2026
+
+- Production build passed with zero errors, warnings or hints.
+- Existing suite plus the focused regression check: **27 passed, 0 failed, 0 skipped in 59.0 seconds** (`CI=true TEST_PORT=4335 npm test`, Node 22, compiled Vercel function).
+- Accessibility, all seven pages at desktop/tablet/mobile widths, navigation, form/API, noindex and government CTA checks remain passing.
+- The new test verifies one identical research callout on Home and Technology, explicit summarized attribution and the implementation qualification. Homepage link bottom edges align within one pixel at 1440, 1024 and 768 px.
+- Regenerated screenshots and reviewed the prominent conclusion and aligned desktop links, plus mobile text wrapping. Architecture components and page messaging outside the shared callout are unchanged. Only the homepage pillar links receive the alignment rule.
+- Rechecked the exact FDD source URL: HTTP 200. The statement is a paraphrase of the model conclusion, not a verbatim quotation or blanket implementation guarantee. RESEARCH.md records the source wording and retained evidence boundaries.
+
+Earlier validation reports follow and remain historical records.
+
+---
+
 # Partner-presentation validation
 
 Updated 7 October 2026. Presentation cleanup is complete; it does not resolve the underlying operational-claim diligence. The previous validation report is retained below as historical documentation.

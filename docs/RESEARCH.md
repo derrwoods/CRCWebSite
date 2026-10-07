@@ -91,3 +91,10 @@ The linked full note is hosted at `https://media.fdd.org/wp-content/uploads/2022
 The public attribution remains specific to independent TCIL research with Cyber Reliant. One short footnote distinguishes the evaluated AIA approach from certification of every implementation. Internally, retain the additional boundary: the 2022 work does not establish validation of the specific upcoming HSM network version. No FDD, NSA or Lloyd’s endorsement is established. The Lloyd’s card states only the supplied relationship.
 
 Security-model qualifications retained as technical explanations include model assumptions, logical versus physical storage separation, endpoint/kernel and readable-memory threats, and the separate role of recovery controls. Presentation edits do not remove those dependencies. The form remains non-delivering and non-persistent; noindex is an indexing preference, not a confidentiality/access control.
+
+
+## FDD conclusion callout — 7 October 2026
+
+Rechecked the cited FDD article with browser-style request headers: HTTP 200. Its executive summary states: “The alternative TCIL tested is based on the principle of information-theoretic security, which remains effective even when unlimited time and computing power are available to the adversary.” It also states that AIA strategies prevent an adversary from collecting sufficient components to decrypt stolen data.
+
+The shared homepage/Technology callout now emphasizes that model conclusion as a **paraphrase**, explicitly labeled “Research conclusion, summarized,” rather than representing the owner's suggested sentence as a verbatim FDD quotation. The statement is conditioned on required information being unavailable; the callout identifies the evaluated AIA security model, names TCIL and the 2022 paper, links the source, and retains the implementation-certification qualification. The accompanying fragmentation/distribution explanation preserves the existing source boundaries recorded above. No new blanket implementation guarantee is made. Other page messaging is unchanged.

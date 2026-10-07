@@ -204,3 +204,11 @@
 #deployment>.section>.text-link{margin-top:24px}
 @media(max-width:900px){.commercial-pillars{gap:20px}.commercial-pillars article+article{padding-left:20px}.commercial-pillars h2{font-size:22px}.proof-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.quantum-comparison{gap:20px}.quantum-comparison article{padding:22px}}
 @media(max-width:650px){.hero-positioning{font-size:18px}.commercial-pillars{grid-template-columns:1fr;gap:24px;margin-bottom:40px;padding-block:28px}.commercial-pillars article+article{border-left:0;border-top:1px solid var(--line);padding:24px 0 0}.commercial-pillars h2{font-size:26px}.commercial-pillars p{margin-bottom:10px}.research-callout{padding:25px 22px}.research-callout h3{font-size:25px}.proof-grid,.quantum-comparison{grid-template-columns:1fr}.proof-grid{gap:24px}.proof-grid article+article{border-top:1px solid var(--line);padding-top:22px}.quantum-explanation{margin:28px 0}}
+
+/* Research conclusion and aligned homepage pillar links. */
+.research-callout .research-statement{font-size:clamp(28px,3vw,42px);line-height:1.22;letter-spacing:-.04em;max-width:1060px;margin:20px 0 25px}
+.research-callout .research-attribution{font-size:13px;line-height:1.7;margin-bottom:24px;color:var(--ink)}
+.research-attribution strong{font-weight:600}
+.research-attribution cite{font-style:normal}
+.research-attribution span{font-size:11px;color:var(--muted)}
+@media(min-width:651px){.home-pillars article{display:flex;flex-direction:column}.home-pillars .text-link{margin-top:auto;padding-top:12px;align-self:flex-start}}

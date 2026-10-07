@@ -254,3 +254,27 @@ test('government contact links consistently request a briefing and preserve inte
   await page.goto('/enterprise');
   await expect(page.locator('.nav-cta')).toContainText('Request a demo');
 });
+
+
+test('FDD model conclusion is consistent and homepage pillar links align', async ({ page }) => {
+  let statement = '';
+  for (const route of ['/', '/technology']) {
+    await page.goto(route);
+    await expect(page.locator('.research-callout')).toHaveCount(1);
+    const callout = page.locator('.research-callout');
+    await expect(callout.locator('h3')).toContainText('when the required information is unavailable');
+    await expect(callout.locator('.research-attribution')).toContainText('Research conclusion, summarized');
+    await expect(callout.locator('.research-boundary')).toContainText('should not be interpreted as certification');
+    const current = await callout.innerText();
+    if (statement) expect(current).toBe(statement);
+    statement = current;
+  }
+  for (const width of [1440, 1024, 768]) {
+    await page.setViewportSize({ width, height: 1000 });
+    await page.goto('/');
+    await page.evaluate(() => document.fonts.ready);
+    const positions = await page.locator('.home-pillars .text-link').evaluateAll(links => links.map(link => link.getBoundingClientRect().bottom));
+    expect(positions).toHaveLength(3);
+    expect(Math.max(...positions) - Math.min(...positions)).toBeLessThan(1);
+  }
+});
