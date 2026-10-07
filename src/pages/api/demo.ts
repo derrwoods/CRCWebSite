@@ -1,7 +1,4 @@
 import type { APIRoute } from 'astro';
-import { mkdir, appendFile } from 'node:fs/promises';
-import { resolve } from 'node:path';
-import { randomUUID } from 'node:crypto';
 
 export const prerender = false;
 const roles = ['CISO / Security leader', 'Security architect', 'IT / Infrastructure', 'Government / Acquisition', 'Other'];
@@ -24,13 +21,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   if (get('website')) return json({ error: 'Unable to accept this submission.' }, 400);
   const firstName = get('firstName'), lastName = get('lastName'), email = get('email'), company = get('company'), role = get('role'), interest = get('interest'), message = get('message');
   if (!firstName || firstName.length > 80 || !lastName || lastName.length > 80 || !company || company.length > 160 || email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !roles.includes(role) || !interests.includes(interest) || message.length > 2000 || get('consent') !== 'yes') return json({ error: 'Please complete all required fields with valid information and agree to the request handling notice.' }, 400);
-  const reference = 'CR-' + randomUUID().slice(0, 8).toUpperCase();
-  const record = { reference, createdAt: new Date().toISOString(), firstName, lastName, email, company, role, interest, message, consent: true, delivery: 'local-only' };
-  try {
-    const directory = resolve(process.env.DEMO_DATA_DIR || '.data');
-    await mkdir(directory, { recursive: true, mode: 0o700 });
-    await appendFile(resolve(directory, 'demo-requests.jsonl'), JSON.stringify(record) + '\n', { mode: 0o600 });
-  } catch { return json({ error: 'The request could not be saved. Please try again later.' }, 503); }
+  // Evaluation only: validate in memory; do not persist, log or forward form data.
   if (!request.headers.get('accept')?.includes('application/json')) return new Response(null,{status:303,headers:{Location:'/request-received','Cache-Control':'no-store'}});
-  return json({ reference, saved: true, delivery: 'local-only' }, 201);
+  return json({ validated: true, saved: false, delivery: 'evaluation-only' });
 };

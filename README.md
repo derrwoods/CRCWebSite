@@ -1,6 +1,6 @@
 # Cyber Reliant
 
-A complete seven-page enterprise cybersecurity marketing website, built with Astro, TypeScript and locally bundled fonts. The home hero summarizes separate protected file fragments and key components feeding authorized reconstruction. The Technology page contains the detailed network file/key paths, Windows reconstruction responsibilities and a conceptual replacement-filter attacker path. A responsive mobile menu, four-step Fragment / Encrypt / Separate / Reconstruct walkthrough, application policy examples and a working local demo-request endpoint are included.
+A complete seven-page enterprise cybersecurity marketing website, built with Astro, TypeScript and locally bundled fonts. The home hero summarizes separate protected file fragments and key components feeding authorized reconstruction. The Technology page contains the detailed network file/key paths, Windows reconstruction responsibilities and a conceptual replacement-filter attacker path. A responsive mobile menu, four-step Fragment / Encrypt / Separate / Reconstruct walkthrough, application policy examples and a working evaluation-only demo-request endpoint are included.
 
 ## Downloads and screenshots
 
@@ -14,7 +14,7 @@ On GitHub, use **Code → Download ZIP** to download this repository. A separate
 
 ## Run locally
 
-Use Node.js 24 (see `.nvmrc`). From this project directory:
+Use Node.js 22 (see `.nvmrc`). From this project directory:
 
 ```sh
 npm ci
@@ -25,10 +25,9 @@ Open the development address printed by Astro. The default port is 4321. For a p
 
 ```sh
 npm run build
-npm run start
 ```
 
-`build` runs the Astro/TypeScript check before producing the Node server. `start` serves the compiled website on port 4321. Stop your running development server before starting production on the same port. No credentials, remote fonts, external database or API services are needed.
+`build` runs the Astro/TypeScript check and produces Vercel Build Output API artifacts in `.vercel/output/`. The official `@astrojs/vercel` 8 adapter supports the existing Astro 5 project; `output: server` preserves on-demand rendering. Node.js 22 matches the adapter’s supported Vercel runtime. The old standalone Node adapter and `start` script have been removed. Use `npm run dev` for local editing. No credentials, remote fonts, external database or API services are needed.
 
 The cloud onboarding window does not provide an interactive localhost preview. Screenshots are in `docs/screenshots/`. To inspect interactively on another machine, copy/download the source and run the commands above.
 
@@ -44,22 +43,56 @@ The cloud onboarding window does not provide an interactive localhost preview. S
 
 Additional routes provide a non-JavaScript submission confirmation and a custom 404 page.
 
+## Deploy with the Vercel website
+
+1. Sign in at [Vercel](https://vercel.com/new) with GitHub. Choose **Add New → Project** if you are on the dashboard.
+2. Find **derrwoods/CRCWebSite** and click **Import**. If it is missing, use **Adjust GitHub App Permissions** to give Vercel access to this repository, then return to Import.
+3. Deploy the **main** branch. Keep these settings:
+
+   | Setting | Choice |
+   | --- | --- |
+   | Framework Preset | **Astro** |
+   | Root Directory | Repository root (`./`); do not select `src` or `downloads` |
+   | Build Command | `npm run build` (the detected default) |
+   | Output Directory | Leave the automatic/default setting; **Override off**. Do not enter `.vercel/output` or `dist/server`. If the UI shows `dist` as its Astro default, leave it unchanged; the adapter supplies Build Output API artifacts. |
+   | Install Command | Automatic/default (`npm install`), or `npm ci` if explicitly overriding |
+   | Node.js Version | **22.x** (also declared in `package.json`) |
+   | Environment Variables | **None to add**; no credentials or secrets required |
+
+4. Click **Deploy**. When the status is **Ready**, click **Visit** to open your website. Vercel supplies an HTTPS address ending in `.vercel.app`.
+5. Open all seven menu pages and try the demo form using sample details. It should report that validation passed and **no request was saved or sent**. Later pushes to `main` deploy automatically.
+
+Vercel’s automatic system environment variables must stay enabled (the default). The configuration uses `VERCEL_URL`, `VERCEL_BRANCH_URL` and `VERCEL_PROJECT_PRODUCTION_URL` to recognize the deployment, branch and primary production hostnames while keeping Astro’s origin checks enabled. **Do not create these variables yourself.** If disabled in an existing project, enable **Automatically expose System Environment Variables** in project settings and redeploy. No wildcard hostname trust or extra `vercel.json` is required. If you later add a custom domain, set it as the production domain and redeploy; additional aliases must be explicitly included in `security.allowedDomains` before form submissions through those aliases can work.
+
+This repository is prepared for deployment; local validation does not create a Vercel project or verify the live Vercel infrastructure. After deploying, the quick browser check in step 5 is still needed.
+
 ## Demo requests
 
-The form validates required fields in the browser and on the server. Successful submissions are appended to `.data/demo-requests.jsonl` with a reference and timestamp. This directory is ignored by Git. The optional runtime variable `DEMO_DATA_DIR` changes the storage directory. Requests remain local: **no email or CRM transmission is configured**, and the UI explicitly explains this before and after submission. Use sample data when testing. Tests append sample requests with `test@example.com`.
+`POST /api/demo` remains server-rendered and validates fields, consent, the honeypot and request origin. A valid JSON submission returns HTTP 200 with `{ "validated": true, "saved": false, "delivery": "evaluation-only" }` and `Cache-Control: no-store`. Without JavaScript it redirects to `/request-received`, which gives the same evaluation-only explanation. Errors preserve the user’s form entries.
 
-Same-origin form protection remains enabled. `astro.config.mjs` explicitly permits localhost and 127.0.0.1 for local validation. Before deployment, add the exact production hostname to `security.allowedDomains` and rebuild. Configure production contact routing, a durable data destination, access and retention controls, and a company-approved privacy notice before collecting live leads. The in-memory per-address throttle is for this local single-process evaluation, not a distributed anti-abuse service.
+**This prototype does not capture leads.** It processes sample details in memory and does not write, log or forward the submitted form data. The local JSONL persistence and `DEMO_DATA_DIR` setting were removed; Vercel’s serverless filesystem is not durable storage. Existing ignored local `.data` files, if any, are neither read nor deployed. No email, CRM, database or analytics service was added. The in-memory throttle is only a per-instance evaluation safeguard, not distributed abuse protection. Durable lead storage, contact routing, retention controls and a company-approved privacy notice are future work before collecting real requests.
 
 ## Verification
 
 ```sh
 npm run build
-npm test
+CI=true TEST_PORT=4335 npm test
 ```
 
-The tests automatically start the compiled server when it is not already running. To validate a fresh server on another port, use `CI=true TEST_PORT=4322 npm test`. They check all seven pages at four viewport widths; run axe accessibility checks; follow all internal links and fragment targets; exercise navigation, keyboard behavior, reduced motion, diagram interactions and real form persistence; reject invalid and foreign-origin submissions; check the custom 404; and capture desktop/mobile screenshots.
+The full Playwright suite starts a **test-only harness** that loads the compiled Vercel function and serves its generated static assets using the generated routing configuration. It does not use the removed Node adapter or substitute the Astro development server. It does not emulate Vercel’s CDN, deployment protection, cold starts or distributed limits.
 
-On this cloud machine tests use `/usr/bin/chromium`. On another machine run `npx playwright install chromium`, or set `PLAYWRIGHT_CHROMIUM_EXECUTABLE` to a compatible browser executable. Install Linux system dependencies if requested by Playwright.
+Tests cover all seven pages at 1440, 768, 390 and 320 px; axe accessibility; internal links and fragments; navigation, keyboard behavior, reduced motion, diagrams, evaluation-form validation, invalid/foreign-origin submissions, no-JavaScript submission, error handling and the custom 404. Desktop/mobile screenshots are regenerated in `docs/screenshots`.
+
+To additionally exercise a Vercel-style HTTPS hostname supplied at build time, use the same harmless fixture value for both commands:
+
+```sh
+VERCEL_URL=cyber-reliant-validation.vercel.app npm run build
+VERCEL_URL=cyber-reliant-validation.vercel.app CI=true TEST_PORT=4335 npm test
+```
+
+This fixture does not create a real deployment or require a secret. On this cloud machine tests use `/usr/bin/chromium`. Elsewhere run `npx playwright install chromium`, or set `PLAYWRIGHT_CHROMIUM_EXECUTABLE` to a compatible browser executable. Install Linux system dependencies if requested by Playwright.
+
+Official guidance checked for this migration: [Astro Vercel deployment](https://docs.astro.build/en/guides/deploy/vercel/) and [official adapter](https://docs.astro.build/en/guides/integrations-guide/vercel/), retrieved from the official [withastro/docs source](https://github.com/withastro/docs/tree/main/src/content/docs/en/guides) because the documentation website was blocked by this environment’s network policy. Adapter 8.2.11 declares Astro `^5.0.0` compatibility; no unrelated Astro major-version migration was made.
 
 ## Research and content
 

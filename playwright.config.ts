@@ -15,7 +15,7 @@ export default defineConfig({
     trace: 'retain-on-failure',
   },
   webServer: {
-    command: `HOST=0.0.0.0 PORT=${port} node ./dist/server/entry.mjs`,
+    command: `PORT=${port} node ./tests/serve-vercel.mjs`,
     url: baseURL,
     reuseExistingServer: !process.env.CI,
     timeout: 30000,

@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-import { readFile, mkdir } from 'node:fs/promises';
+import { mkdir } from 'node:fs/promises';
 const baseURL = `http://127.0.0.1:${Number(process.env.TEST_PORT || '4321')}`;
 const routes = ['/', '/how-it-works', '/enterprise', '/government', '/technology', '/about', '/request-demo'];
 
@@ -81,7 +81,7 @@ test('mobile navigation opens, supports Escape and follows links', async ({ page
   await expect(page.locator('h1')).toContainText('Look inside');
 });
 
-test('demo form validates and persists a real local request', async ({ page }) => {
+test('demo form validates sample details without claiming lead capture', async ({ page }) => {
   await page.goto('/request-demo?interest=Enterprise');
   await expect(page.locator('#interest')).toHaveValue('Enterprise');
   await page.getByRole('button', { name: 'Submit demo request' }).click();
@@ -94,13 +94,9 @@ test('demo form validates and persists a real local request', async ({ page }) =
   await page.getByLabel('What would you like to explore?').fill('Automated local evaluation request.');
   await page.getByRole('checkbox').check();
   await page.getByRole('button', { name: 'Submit demo request' }).click();
-  await expect(page.getByRole('status')).toContainText('Your request has been saved locally.');
-  await expect(page.getByRole('status')).toContainText('No email has been sent.');
-  const feedback = await page.getByRole('status').textContent();
-  const reference = feedback?.match(/CR-[A-F0-9]{8}/)?.[0];
-  expect(reference).toBeTruthy();
-  const records = (await readFile('.data/demo-requests.jsonl', 'utf8')).trim().split('\n').map(line => JSON.parse(line));
-  expect(records.find(record => record.reference === reference)).toMatchObject({ email: 'test@example.com', delivery: 'local-only', consent: true });
+  await expect(page.getByRole('status')).toContainText('Your sample details passed validation.');
+  await expect(page.getByRole('status')).toContainText('No request was saved or sent to Cyber Reliant.');
+
 });
 
 test('demo API rejects invalid data and cross-origin requests', async ({ request }) => {
@@ -157,13 +153,13 @@ test('demo form remains usable without JavaScript', async ({ browser }) => {
   await page.getByRole('checkbox').check();
   await page.getByRole('button', { name: 'Submit demo request' }).click();
   await expect(page).toHaveURL(/\/request-received$/);
-  await expect(page.locator('h1')).toHaveText('Your request is saved.');
+  await expect(page.locator('h1')).toHaveText('Your form is validated.');
   await context.close();
 });
 
 test('demo form explains a server failure without claiming success', async ({ page }) => {
   await page.goto('/request-demo?interest=Enterprise');
-  await page.route('**/api/demo', route => route.fulfill({ status: 503, contentType: 'application/json', body: JSON.stringify({ error: 'The request could not be saved. Please try again later.' }) }));
+  await page.route('**/api/demo', route => route.fulfill({ status: 503, contentType: 'application/json', body: JSON.stringify({ error: 'The request could not be validated. Please try again later.' }) }));
   await page.getByLabel('First name').fill('Failure');
   await page.getByLabel('Last name').fill('Evaluator');
   await page.getByLabel('Work email').fill('test@example.com');
@@ -171,7 +167,7 @@ test('demo form explains a server failure without claiming success', async ({ pa
   await page.getByLabel('Your role').selectOption('Security architect');
   await page.getByRole('checkbox').check();
   await page.getByRole('button', { name: 'Submit demo request' }).click();
-  await expect(page.getByRole('status')).toContainText('could not be saved');
+  await expect(page.getByRole('status')).toContainText('could not be validated');
   await expect(page.getByRole('button', { name: 'Submit demo request' })).toBeEnabled();
   await expect(page.getByLabel('First name')).toHaveValue('Failure');
 });
@@ -192,4 +188,18 @@ test('technical qualifications remain accessible by keyboard on mobile', async (
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBeTruthy();
   const scan = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
   expect(scan.violations).toEqual([]);
+});
+
+test('Vercel HTTPS origin validates without saving and rejects foreign origins', async ({ request }) => {
+  // Build with VERCEL_URL=cyber-reliant-validation.vercel.app to exercise
+  // Vercel's automatic hostname configuration without a cloud deployment.
+  const host = process.env.VERCEL_URL || 'localhost';
+  const headers = { Accept: 'application/json', Origin: `https://${host}`, Host: host, 'X-Forwarded-Host': host, 'X-Forwarded-Proto': 'https', 'X-Forwarded-For': '192.0.2.10' };
+  const multipart = { firstName: 'Sample', lastName: 'Evaluator', email: 'sample@example.com', company: 'Evaluation', role: 'Security architect', interest: 'Enterprise', consent: 'yes' };
+  const response = await request.post('/api/demo', { headers, multipart });
+  expect(response.status()).toBe(200);
+  expect(response.headers()['cache-control']).toBe('no-store');
+  expect(await response.json()).toEqual({ validated: true, saved: false, delivery: 'evaluation-only' });
+  const foreign = await request.post('/api/demo', { headers: { ...headers, Origin: 'https://foreign.example' }, multipart });
+  expect(foreign.status()).toBe(403);
 });

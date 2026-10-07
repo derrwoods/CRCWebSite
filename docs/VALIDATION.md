@@ -1,57 +1,32 @@
-# Validation and visual critique
+# Vercel deployment validation
 
-Updated 7 October 2026 for the focused home-hero refinement, against a fresh local production server on port 4322.
+Updated 7 October 2026. This is a deployment-only migration of the approved prototype.
+
+## Changes
+
+- Replaced `@astrojs/node` with official `@astrojs/vercel` 8.2.11, compatible with the existing Astro 5.18.2 installation. Kept `output: 'server'` and every page/API route.
+- Removed the standalone Node start command. Pinned Node.js 22 in `.nvmrc` and package engines to match the adapter's supported Vercel runtime. The initial Node 24 build warned that the adapter would fall back to Node 22; rebuilding under Node 22 resolved that warning.
+- Generated Vercel Build Output API v3 configuration, static assets and `_render` function with `nodejs22.x` runtime. The generated route table includes all seven pages, `/api/demo`, the no-JavaScript confirmation and the 404 fallback.
+- Derived trusted deployment hostnames from Vercel's automatic system variables. Same-origin protection remains enabled. No credentials, custom environment variables or third-party services were added.
+- Removed JSONL writes. The demo API validates sample details in memory and returns `saved: false`, `delivery: 'evaluation-only'`. Visible form and confirmation notices explain that no request is saved or sent. Existing ignored local records are not deployed.
 
 ## Results
 
-- Frozen installation: `npm ci --cache /workspace/.npm-cache --no-audit --no-fund` passed.
-- Production/type validation: `npm run build` passed with 0 errors, 0 warnings and 0 hints.
-- Browser suite: `CI=true TEST_PORT=4322 npm test` — **22 passed**, 0 failed, 0 skipped (1.3 minutes).
-- Browser: real Chromium 151, launched through Playwright.
-- All seven requested pages returned HTTP 200 at 1440, 768, 390 and 320 px widths, without horizontal document overflow or browser console errors.
-- Axe WCAG A/AA automated scans reported zero violations on all seven pages. Automated scanning is not a complete accessibility certification.
-- All internal links and fragment targets resolved. Desktop navigation, mobile navigation, Escape handling, visible keyboard focus, skip link and reduced-motion behavior were exercised.
-- The revised Fragment / Encrypt / Separate / Reconstruct walkthrough and both allow/block application examples were exercised. The legacy `#distribute` deep link still selects Separate.
-- A new mobile test opens the Windows threat-model and network evaluation disclosures by keyboard and runs an accessibility scan with their contents expanded. The technical table is keyboard-scrollable through a named, focusable region.
-- A real demo request returned a reference and was verified in the server's JSONL store. The form also works without JavaScript. Invalid input and foreign-origin submissions were rejected. A simulated server failure left entered data intact and displayed an error rather than a success message.
-- The custom 404 returns HTTP 404 and offers a working home link.
-- Regenerated full screenshots for every page on desktop and mobile, both home hero views, the enterprise exposure illustration, and close-ups of the new network and attacker diagrams. Visually reviewed home, network, Windows reconstruction and attacker-path layouts on desktop/mobile.
+- Frozen `npm ci` installation passed with the updated lockfile. A fresh build without the hostname fixture also passed; development startup and the compiled function’s default-host API path were smoke-tested successfully.
 
-## Focused home-hero refinement
+- `npm run build` under Node 22.23.3 passed: zero Astro/TypeScript errors, warnings or hints; Vercel build completed successfully.
+- Full production-artifact Playwright suite: **23 passed, 0 failed, 0 skipped**, 58.8 seconds. Command: `VERCEL_URL=cyber-reliant-validation.vercel.app CI=true TEST_PORT=4335 npm test`, following a build with the same fixture hostname.
+- Tests load the actual compiled Vercel function using a local test-only HTTP harness and generated static assets/routes. They do not use the former Node adapter or the development server.
+- All seven pages returned HTTP 200 at 1440, 768, 390 and 320 px, with no horizontal document overflow or browser errors.
+- Axe WCAG 2 A/AA and 2.1 AA scans reported zero violations for all seven pages and expanded mobile technical disclosures. Automated scans are not a complete accessibility certification.
+- Internal links and fragment targets, mobile menu/Escape/focus, skip link, reduced motion, the four-step walkthrough and application-policy controls passed.
+- The real API accepted valid sample input without claiming persistence, rejected invalid and foreign-origin requests, and returned `Cache-Control: no-store`. A Vercel-style HTTPS host passed same-origin validation while a foreign origin returned 403.
+- JavaScript and no-JavaScript form flows passed. Simulated server failure preserved input and displayed an error. The custom 404 returned 404 and its home link worked.
+- Regenerated all 21 desktop/mobile screenshots. Pixel-by-pixel comparison against the approved Git revision found **19 identical images**. Only the two demo-form screenshots differ, reflecting the required evaluation notices. Their dimensions are unchanged: 1440 × 1649 and 390 × 2510. Visually reviewed both updated form screenshots; typography, spacing, input layout and footer placement are preserved.
+- No styles, shared components, diagrams, layouts or product/marketing claims were changed.
 
-The home hero now uses the simplified conceptual graphic; the detailed dual-path illustration appears on Technology with more desktop width and larger labels. Home copy, the four-part mechanism, HSM wording and Windows/filter content remain unchanged. The figure link to `/technology#network` is covered by the complete internal-link/fragment-target check. Reduced motion and the new figure's accessibility are covered by the retained suite.
+## Deployment boundary
 
-Regenerated desktop/mobile screenshots were reviewed, including the home hero and enlarged Technology diagram. All 22 existing tests passed without dropping checks. The initial attempt could not start because port 4321 was occupied by a pre-existing server; adding an optional `TEST_PORT` setting allowed validation of a fresh server on port 4322 without interfering with that process. Default local development remains on 4321. A final Astro/TypeScript check also passed with zero errors, warnings or hints.
+Local validation does not verify Vercel's actual CDN, cold starts, deployment protection or distributed rate limiting. No live Vercel deployment was performed. Import the repository using the README instructions, then check the deployed pages and sample form once the deployment is Ready.
 
-## Revision issues found and corrected
-
-- Darkened the attacker diagram’s “May reach” label to pass contrast requirements.
-- Made the technical comparison table a named, keyboard-focusable scrolling region.
-- Kept the two network diagram paths separate until they enter authorized reconstruction.
-
-## Initial build issues found and corrected
-
-- Darkened several small labels that fell just below the required contrast ratio.
-- Explicitly permitted local hostnames in Astro's SSR host validation so same-origin form requests retain their correct origin; kept origin protection enabled.
-- Replaced unsupported diagonal arrow glyphs with inline SVGs.
-- Improved the mobile headline scale and line breaks.
-- Excluded generated Playwright report files from source type checking.
-- Restarted a stale Node server after rebuilding; the clean-server test run confirms current assets and form behavior.
-
-## Visual critique
-
-The restrained ink/ivory/lime palette and technical illustrations give the site a consistent enterprise character. Large editorial headings establish hierarchy; dark architectural sections separate detailed explanations from conversion content. The home page leads with the file, not unsupported metrics or customer logos. The interaction controls remain simple and keyboard usable. The government page uses a sober assurance/evaluation structure instead of implying unverified credentials.
-
-On small screens, content stacks in reading order; diagrams preserve their labels; the long technical table scrolls within its own container. The form keeps large inputs and explicit local-only submission language. The small diagram captions are secondary; the same substantive explanations appear in larger body copy and accessible diagram labels.
-
-The revision makes file/key separation and authorized reconstruction prominent. The file path and key path remain distinct visually; the Windows filter responsibilities are stated explicitly. Attacker storage reach is shown separately from the information, cryptographic material and processes needed for reconstruction. Detailed limitations are available in secondary copy and expandable sections.
-
-The main remaining content limitation is evidence: there are no verified customer references, product benchmarks, official brand assets or implementation documents available in this project. The copy intentionally offers a technical evaluation rather than inventing proof. The network/HSM design is explicitly upcoming throughout.
-
-## Scope and remaining work
-
-Competitor and NIST sources were retrieved successfully. Cyber Reliant's public site returned HTTP 503, so its current content could not be audited. See RESEARCH.md for sources and attribution. Initial public research was blocked until the saved network-domain update took effect.
-
-The demo endpoint is an actual local capture workflow, not an email integration. Public launch requires a configured production hostname, lead destination, durable data handling and company-approved privacy text. No live emails were sent. The first version was pushed to GitHub, and this revision is prepared for the same repository with an updated source ZIP. No production deployment or environment publication has been performed. Environment install/start instructions and the necessary research domains were saved to the draft; publication and fresh-task restoration have not been verified.
-
-The first build initialized the previously empty checkout. This revision updates the existing site and adds the two new architecture components. Generated build output, dependencies, test reports and local demo records are ignored by Git. The source archive excludes those generated/private runtime directories.
+This remains an evaluation prototype, not durable lead capture. Real lead collection requires a separately approved persistence/delivery design and privacy/retention policy. Existing product-evidence limitations remain documented in RESEARCH.md; this migration makes no new product claims.
