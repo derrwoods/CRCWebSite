@@ -1,6 +1,6 @@
 # Cyber Reliant
 
-A complete seven-page enterprise cybersecurity marketing website, built with Astro, TypeScript and locally bundled fonts. Custom architecture diagrams, a responsive mobile menu, an interactive protection walkthrough, application policy examples and a working local demo-request endpoint are included.
+A complete seven-page enterprise cybersecurity marketing website, built with Astro, TypeScript and locally bundled fonts. Custom diagrams distinguish the network file and key paths, Windows reconstruction responsibilities and a conceptual replacement-filter attacker path. A responsive mobile menu, four-step Fragment / Encrypt / Separate / Reconstruct walkthrough, application policy examples and a working local demo-request endpoint are included.
 
 ## Downloads and screenshots
 
@@ -8,6 +8,8 @@ On GitHub, use **Code → Download ZIP** to download this repository. A separate
 
 - [Desktop home-page screenshot](docs/screenshots/home-desktop-fold.png)
 - [Mobile home-page screenshot](docs/screenshots/home-mobile-fold.png)
+- [Network file/key paths](docs/screenshots/network-paths-1440.png)
+- [Windows attacker path](docs/screenshots/attacker-path-1440.png)
 - [All page screenshots](docs/screenshots)
 
 ## Run locally

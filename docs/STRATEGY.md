@@ -64,3 +64,14 @@ Production build and type checks; real Chromium across desktop/tablet/mobile; al
 ## Research follow-up
 
 The network policy later took effect. Virtru, Thales, Rubrik and NIST were retrieved and reviewed during implementation validation. See RESEARCH.md for sourced findings, the claim ledger and the remaining Cyber Reliant website access limitation. The original blocked-research record above is retained to make the sequence explicit.
+
+
+## Revised positioning direction
+
+The owner requested a sharper explanation of the architectural difference after reviewing the first build. Preserve the visual system and headline “Protection that stays with the file.” Lead with “Storage access is not file access” and explain why: possession of encrypted fragments does not supply the complete information, protected cryptographic material and authorized processes required to rebuild the file.
+
+The mechanism now has four steps: Fragment, Encrypt, Separate, Reconstruct. Separate refers to file fragments and cryptographic material, not an assumed physical independence of storage. The upcoming network diagram contains parallel FILE PATH and KEY PATH lanes. The key lane fragments/shreds cryptographic material itself and protects multiple components through the HSM architecture. The two lanes converge only at AUTHORIZED CYBER RELIANT RECONSTRUCTION.
+
+The Windows story centers on rebuilding, not interception: identify the correct protected fragments, obtain required cryptographic material, decrypt, reconstruct. A separate conceptual attacker illustration shows a malicious/replacement filter reaching storage while distinguishing that reach from the missing information, material and protected processes. The adjacent expandable threat-model note explicitly retains the bypass and kernel-attack qualifications.
+
+Commercial implications: the buyer evaluates the complete path to readable data, rather than a checklist of familiar encryption features. The demonstration agenda, enterprise scenarios and government messaging now follow those paths. Qualifications remain in secondary notes, FAQs and expandable technical sections so they support rather than overwhelm the principal message.

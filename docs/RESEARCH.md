@@ -32,3 +32,18 @@ The initially attempted Thales CipherTrust URL returned 404; the authoritative d
 ## Publication follow-up
 
 Verify the company site and official brand assets when accessible. Obtain owner approval of architecture language, implementation evidence, product release status and a company-approved privacy/contact process. No competitor comparison appears as a superiority claim on the public pages. The local demo endpoint saves evaluation requests on disk and does not send them to Cyber Reliant.
+
+
+## Revision: reconstruction-centered positioning
+
+The owner's subsequent technical brief is the source for the following additional product statements. These have not been independently verified through a public vendor source; competitor messaging is not evidence for them.
+
+| Revised claim | Source and boundary |
+| --- | --- |
+| Storage compromise alone does not produce a readable protected file | Owner's revised brief: reconstruction requires the authorized Cyber Reliant path and protected cryptographic material. This is not an assertion that every possible attack is prevented. |
+| The upcoming network architecture fragments/shreds cryptographic material itself | Owner's revised brief: multiple key components are protected through the HSM architecture. Do not collapse this into a single key in an HSM. No threshold, quorum, algorithm, HSM count or key-recovery guarantee has been invented. |
+| Separate file and key paths converge at authorized reconstruction | Owner's revised brief: file fragmentation → fragment encryption → logical distribution; cryptographic material → fragmentation/shredding → HSM component protection. Counts and connections in diagrams are conceptual. Logical locations need not be physically independent failure domains. |
+| Windows filter participates in fragment identification, obtaining material, decryption and reconstruction | Owner's revised brief. Diagram depicts responsibilities and inputs rather than an exact driver-call sequence. |
+| A malicious/replacement filter may reach storage without automatically reproducing reconstruction | Owner's revised brief. No claim that bypass is impossible, that a kernel-level attacker cannot succeed, or that readable data in memory is unexposable. |
+
+The primary marketing copy is now concise and declarative. Implementation boundaries remain available in figure captions, FAQs, evaluation notes and keyboard-accessible technical disclosures. The revised design preserves the original page hierarchy, palette, typography, forms and responsive behavior.

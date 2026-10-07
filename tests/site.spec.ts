@@ -51,9 +51,9 @@ test('all internal links and fragment targets resolve', async ({ page, request }
 
 test('walkthrough deep links and application policy controls work', async ({ page }) => {
   await page.goto('/how-it-works#distribute');
-  await expect(page.locator('#distribute')).toBeVisible();
+  await expect(page.locator('#separate')).toBeVisible();
   await expect(page.locator('#fragment')).toBeHidden();
-  for (const id of ['fragment', 'encrypt', 'distribute', 'reconstruct']) {
+  for (const id of ['fragment', 'encrypt', 'separate', 'reconstruct']) {
     await page.locator(`[data-step="${id}"]`).click();
     await expect(page.locator(`#${id}`)).toBeVisible();
     await expect(page.locator(`[data-step="${id}"]`)).toHaveAttribute('aria-current', 'step');
@@ -133,6 +133,12 @@ test('capture desktop and mobile pages for visual review', async ({ page }) => {
       await page.goto(route);
       await page.evaluate(() => document.fonts.ready);
       await page.screenshot({ path: `docs/screenshots/${route === '/' ? 'home' : route.slice(1)}-${width}.png`, fullPage: true, animations: 'disabled' });
+      if (route === '/') await page.screenshot({ path: `docs/screenshots/home-${width === 1440 ? 'desktop' : 'mobile'}-fold.png`, animations: 'disabled' });
+      if (route === '/enterprise' && width === 1440) await page.locator('.threat-map').screenshot({ path: 'docs/screenshots/exposure-architecture.png', animations: 'disabled' });
+      if (route === '/technology') {
+        await page.locator('.network-visual').screenshot({ path: `docs/screenshots/network-paths-${width}.png`, animations: 'disabled' });
+        await page.locator('.attacker-diagram').screenshot({ path: `docs/screenshots/attacker-path-${width}.png`, animations: 'disabled' });
+      }
     }
   }
 });
@@ -167,4 +173,22 @@ test('demo form explains a server failure without claiming success', async ({ pa
   await expect(page.getByRole('status')).toContainText('could not be saved');
   await expect(page.getByRole('button', { name: 'Submit demo request' })).toBeEnabled();
   await expect(page.getByLabel('First name')).toHaveValue('Failure');
+});
+
+
+test('technical qualifications remain accessible by keyboard on mobile', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/technology#attacker-path');
+  const driverDetails = page.getByText('Threat-model boundary: driver replacement and kernel-level attacks', { exact: true });
+  await driverDetails.focus();
+  await page.keyboard.press('Enter');
+  await expect(page.locator('#attacker-path details')).toHaveAttribute('open', '');
+  await expect(page.locator('#attacker-path details p')).toBeVisible();
+  const networkDetails = page.getByText('Network architecture details and evaluation boundaries', { exact: true });
+  await networkDetails.focus();
+  await page.keyboard.press('Enter');
+  await expect(page.locator('#network details p')).toBeVisible();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBeTruthy();
+  const scan = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
+  expect(scan.violations).toEqual([]);
 });

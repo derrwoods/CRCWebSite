@@ -1,0 +1,12 @@
+<div class="windows-architecture reconstruction-architecture" role="img" aria-label="Windows protected access architecture. Requesting application passes application-level controls. The Cyber Reliant file-system filter participates in identifying the correct protected fragments, obtaining required cryptographic material, decrypting the fragments and reconstructing the protected file. Protected storage and cryptographic material support this process. The authorized path produces a readable file; unapproved requests are blocked by policy.">
+  <div class="windows-entry"><div class="arch-box"><strong>Requesting application</strong><small>Protected file access request</small></div><span aria-hidden="true">↓</span><div class="arch-box green-box"><strong>Application-level controls</strong><small>Request evaluated against policy</small></div><span class="windows-policy-note">Unapproved requests blocked by policy</span></div>
+  <div class="arch-arrow" aria-hidden="true">↓</div>
+  <div class="windows-filter">
+    <div class="filter-heading"><span class="tiny-label">CYBER RELIANT FILE-SYSTEM FILTER</span><strong>Participates in rebuilding the protected file</strong></div>
+    <ol class="rebuild-stages"><li><span>01</span><strong>Identify</strong><small>The correct protected fragments</small></li><li><span>02</span><strong>Obtain</strong><small>Required cryptographic material</small></li><li><span>03</span><strong>Decrypt</strong><small>The encrypted fragments</small></li><li><span>04</span><strong>Reconstruct</strong><small>The protected file</small></li></ol>
+    <div class="filter-inputs"><span>PROTECTED FILE FRAGMENTS</span><span>REQUIRED CRYPTOGRAPHIC MATERIAL</span></div>
+  </div>
+  <div class="arch-arrow" aria-hidden="true">↓</div>
+  <div class="windows-output"><strong>Readable file through authorized Cyber Reliant reconstruction</strong></div>
+  <p class="small-note">Conceptual responsibilities, not a complete driver specification or an exact sequence of internal calls.</p>
+</div>
