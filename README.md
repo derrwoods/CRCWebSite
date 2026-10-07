@@ -1,6 +1,6 @@
 # Cyber Reliant
 
-A complete seven-page enterprise cybersecurity marketing website, built with Astro, TypeScript and locally bundled fonts. The home page leads with Zero Trust, quantum security and software deployment, followed by attributed research and clearly provisional founder-supplied history. The home hero preserves the separate protected file fragments and key components feeding authorized reconstruction. The Technology page contains the detailed network file/key paths, Windows reconstruction responsibilities and a conceptual replacement-filter attacker path. A responsive mobile menu, four-step Fragment / Encrypt / Separate / Reconstruct walkthrough, application policy examples and a working evaluation-only demo-request endpoint are included.
+A complete seven-page enterprise cybersecurity marketing website, built with Astro, TypeScript and locally bundled fonts. The home page leads with Zero Trust, quantum security and software deployment, followed by attributed research and company credentials and operational history. The home hero preserves the separate protected file fragments and key components feeding authorized reconstruction. The Technology page contains the detailed network file/key paths, Windows reconstruction responsibilities and a conceptual replacement-filter attacker path. A responsive mobile menu, four-step Fragment / Encrypt / Separate / Reconstruct walkthrough, application policy examples and a working evaluation-only demo-request endpoint are included.
 
 ## Downloads and screenshots
 
@@ -68,7 +68,7 @@ This repository is prepared for deployment; local validation does not create a V
 
 ## Demo requests
 
-`POST /api/demo` remains server-rendered and validates fields, consent, the honeypot and request origin. A valid JSON submission returns HTTP 200 with `{ "validated": true, "saved": false, "delivery": "evaluation-only" }` and `Cache-Control: no-store`. Without JavaScript it redirects to `/request-received`, which gives the same evaluation-only explanation. Errors preserve the user’s form entries.
+`POST /api/demo` remains server-rendered and validates fields, consent, the honeypot and request origin. A valid JSON submission returns HTTP 200 with `{ "validated": true, "saved": false, "delivery": "evaluation-only" }` and `Cache-Control: no-store`. Without JavaScript it redirects to `/request-received`, which accurately explains that no request was saved or sent. Errors preserve the user’s form entries.
 
 **This prototype does not capture leads.** It processes sample details in memory and does not write, log or forward the submitted form data. The local JSONL persistence and `DEMO_DATA_DIR` setting were removed; Vercel’s serverless filesystem is not durable storage. Existing ignored local `.data` files, if any, are neither read nor deployed. No email, CRM, database or analytics service was added. The in-memory throttle is only a per-instance evaluation safeguard, not distributed abuse protection. Durable lead storage, contact routing, retention controls and a company-approved privacy notice are future work before collecting real requests.
 
@@ -100,7 +100,7 @@ Official guidance checked for this migration: [Astro Vercel deployment](https://
 - `docs/RESEARCH.md` — Retrieved competitor/NIST sources, claim ledger and research access limitations.
 - `docs/VALIDATION.md` — Final checks, visual review and limitations.
 
-Product-specific statements are based on the project owner's technical brief. The commercial revision also cites the user-supplied summary of FDD TCIL’s December 2022 AIA research; the source website was blocked by the environment proxy, so its full text has not been independently checked here. Founder-supplied CSfC, combat-deployment, breach-history, patent-pending TRNG and Lloyd’s-related statements are visibly provisional and require verification before public launch. No institutional endorsement is implied. The upcoming network version is explicitly distinguished from the described Windows implementation. The site does not invent customers, benchmark numbers or release dates; provisional history and status claims are attributed to the founder-supplied brief. The geometric logo is a proposed design, not a verified official asset. Cyber Reliant's public website returned HTTP 503 during research; its existing claims and brand assets remain unverified.
+Product-specific statements are based on the project owner's technical brief. The FDD article and executive summary were retrieved successfully during the partner-presentation pass; the separately hosted full PDF remains blocked. Company/founder-provided CSfC, combat-deployment, breach-history, patent-pending TRNG and Lloyd’s-related claims still require supporting-record verification before official public launch. Detailed source distinctions remain in docs/RESEARCH.md, docs/STRATEGY.md and docs/VALIDATION.md rather than visitor-facing copy. No institutional endorsement is implied. The upcoming network version is explicitly distinguished from the described Windows implementation. The site does not invent customers, benchmark numbers or release dates; provisional history and status claims are attributed to the founder-supplied brief. The geometric logo is a proposed design, not a verified official asset. Cyber Reliant's public website returned HTTP 503 during research; its existing claims and brand assets remain unverified.
 
 ## Cloud setup
 
@@ -111,3 +111,14 @@ npm ci --cache /workspace/.npm-cache
 ```
 
 Astro telemetry is disabled in the commands so they do not require writing a home-directory configuration. Use the existing isolated checkout at `/workspace/CRCWebSite`; no extra Git worktree is necessary. Runtime processes do not survive environment snapshots, so restart the server when needed. No secret values belong in the source or saved setup instructions.
+
+
+## Partner review: search indexing and contact behavior
+
+Every HTML page includes `<meta name="robots" content="noindex, nofollow" />` in the shared head in **`src/layouts/Layout.astro`**. This includes the seven primary pages, request-review confirmation and custom 404. To enable search indexing at public launch, remove that robots meta tag, rebuild and redeploy. There is no authentication or password protection: the metadata asks compliant search engines not to index/follow; it does not restrict access to anyone with the URL. We do not disallow crawling in robots.txt, so crawlers can read the noindex directive.
+
+Government navigation, footer and page contact CTAs use **Request a briefing**, linking to `/request-demo?interest=Government`. That entry point selects Government and carries the briefing language into the form heading. Commercial pages retain Request a demo.
+
+The form’s button now reads **Review details**. It checks completeness and truthfully states that nothing is saved or sent. No delivery/persistence integration was added during this presentation pass; live lead capture remains separate work. The concise visitor copy avoids internal process labels without promising contact or transmission that does not occur.
+
+The presentation uses company-provided credentials without displaying the internal diligence process. **Presentation cleanup is not validation of those claims.** Preserve and complete the outstanding evidence tasks in the internal documentation before an official public launch.

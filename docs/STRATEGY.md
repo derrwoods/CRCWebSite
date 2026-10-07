@@ -84,3 +84,10 @@ Preserve the approved visual system and architecture diagrams. Lead with why the
 The home page follows that hierarchy. Technology adds data-centric protection, explicit Zero Trust boundaries and the FDD-attributed AIA rationale before the preserved Windows, attacker-path and upcoming network diagrams. Enterprise maps the pillars to IP, regulated information, long-lived secrets and the existing stack. Government maps them to sensitive/classified information requirements, quantum migration, constrained mission conditions and implementation evidence.
 
 Keep AIA as FDD research terminology, not a broad product rename. Separate conceptual information-theoretic reasoning from implementation claims; do not treat research as certification or attach the 2022 research to the newer HSM implementation. Maintain visible provisional notices around all founder-supplied operational history. See RESEARCH.md for the source-access limitation and claim ledger. No performance guarantees were added.
+
+
+## Partner-ready presentation pass
+
+The approved commercial hierarchy and visuals remain. Home evidence is shortened into credentials/operational-history cards, with FDD independent research distinct from company history. Internal source and validation notes now live exclusively in project documentation. This is a presentation decision for partner discussion, not a finding that outstanding claims have been substantiated. Complete the claim ledger in RESEARCH.md before official public launch.
+
+Government conversion language is Request a briefing, carried through navigation, footer, page CTA and the Government form entry point. Commercial CTAs remain Request a demo. The form reviews details without claiming to send a request; no delivery service was authorized or introduced. Global noindex/nofollow discourages discovery during partner review, without authentication. Removal instructions are in README.md.

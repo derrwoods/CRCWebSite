@@ -78,3 +78,16 @@ These are not independently validated operational proof. They must be checked be
 ### Deployment claims
 
 Software deployment is framed as an approach designed to preserve existing infrastructure, with compatibility and integrations subject to evaluation. Hybrid, cloud, edge, distributed and constrained environments are evaluation targets, not a list of validated integrations. The core software approach is distinguished from the upcoming network version's HSM dependency. Disconnected operation, availability and recovery must be verified for the mission.
+
+
+## Partner-presentation pass: source status and retained diligence
+
+The owner requested removal of visible internal validation labels, not deletion or completion of diligence. All earlier claim-source distinctions and outstanding validation items above remain in force. Visitor cards now state the supplied operational history concisely. They do not turn founder/company statements into independently verified findings. CSfC product/listing scope, dates/status, combat deployment records, protected Top Secret breach-history reporting period and scope, TRNG filing/technical evidence, and the Lloyd’s provider/relationship/coverage remain open before official public launch. No performance/latency claim was added.
+
+On 7 October 2026 the exact FDD article URL returned **HTTP 200** with browser-style User-Agent and Accept headers after the default Python request returned 403. The retrieved article is titled *Protecting and Securing Data from the Quantum Threat*, December 16, 2022, by Georgianna Shea and Annie Fixler. Its executive summary independently confirms TCIL work with Cyber Reliant, the AIA term, information-theoretic rationale, mitigation of harvesting encrypted data for later decryption, and the conclusion that government and private entities should pursue AIA solutions.
+
+The linked full note is hosted at `https://media.fdd.org/wp-content/uploads/2022/12/fdd-ccti-protecting-and-securing-data-from-the-quantum-threat.pdf`; retrieval was blocked by the proxy. Detailed fragmentation/distribution and deployment descriptions beyond the retrieved executive summary still rely on the user-supplied account of the note. This new result supersedes the earlier statement that no FDD source text was retrievable, without implying the full note or every implementation was verified.
+
+The public attribution remains specific to independent TCIL research with Cyber Reliant. One short footnote distinguishes the evaluated AIA approach from certification of every implementation. Internally, retain the additional boundary: the 2022 work does not establish validation of the specific upcoming HSM network version. No FDD, NSA or Lloyd’s endorsement is established. The Lloyd’s card states only the supplied relationship.
+
+Security-model qualifications retained as technical explanations include model assumptions, logical versus physical storage separation, endpoint/kernel and readable-memory threats, and the separate role of recovery controls. Presentation edits do not remove those dependencies. The form remains non-delivering and non-persistent; noindex is an indexing preference, not a confidentiality/access control.

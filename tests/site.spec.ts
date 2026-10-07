@@ -84,7 +84,7 @@ test('mobile navigation opens, supports Escape and follows links', async ({ page
 test('demo form validates sample details without claiming lead capture', async ({ page }) => {
   await page.goto('/request-demo?interest=Enterprise');
   await expect(page.locator('#interest')).toHaveValue('Enterprise');
-  await page.getByRole('button', { name: 'Submit demo request' }).click();
+  await page.getByRole('button', { name: 'Review details' }).click();
   await expect(page.locator('#firstName')).toBeFocused();
   await page.getByLabel('First name').fill('Test');
   await page.getByLabel('Last name').fill('Evaluator');
@@ -93,8 +93,8 @@ test('demo form validates sample details without claiming lead capture', async (
   await page.getByLabel('Your role').selectOption('Security architect');
   await page.getByLabel('What would you like to explore?').fill('Automated local evaluation request.');
   await page.getByRole('checkbox').check();
-  await page.getByRole('button', { name: 'Submit demo request' }).click();
-  await expect(page.getByRole('status')).toContainText('Your sample details passed validation.');
+  await page.getByRole('button', { name: 'Review details' }).click();
+  await expect(page.getByRole('status')).toContainText('Your details are ready to discuss.');
   await expect(page.getByRole('status')).toContainText('No request was saved or sent to Cyber Reliant.');
 
 });
@@ -151,9 +151,9 @@ test('demo form remains usable without JavaScript', async ({ browser }) => {
   await page.getByLabel('Your role').selectOption('Security architect');
   await page.getByLabel('Area of interest').selectOption('Technical architecture');
   await page.getByRole('checkbox').check();
-  await page.getByRole('button', { name: 'Submit demo request' }).click();
+  await page.getByRole('button', { name: 'Review details' }).click();
   await expect(page).toHaveURL(/\/request-received$/);
-  await expect(page.locator('h1')).toHaveText('Your form is validated.');
+  await expect(page.locator('h1')).toHaveText('Your details are ready to discuss.');
   await context.close();
 });
 
@@ -166,9 +166,9 @@ test('demo form explains a server failure without claiming success', async ({ pa
   await page.getByLabel('Organization').fill('Local evaluation');
   await page.getByLabel('Your role').selectOption('Security architect');
   await page.getByRole('checkbox').check();
-  await page.getByRole('button', { name: 'Submit demo request' }).click();
+  await page.getByRole('button', { name: 'Review details' }).click();
   await expect(page.getByRole('status')).toContainText('could not be validated');
-  await expect(page.getByRole('button', { name: 'Submit demo request' })).toBeEnabled();
+  await expect(page.getByRole('button', { name: 'Review details' })).toBeEnabled();
   await expect(page.getByLabel('First name')).toHaveValue('Failure');
 });
 
@@ -181,7 +181,7 @@ test('technical qualifications remain accessible by keyboard on mobile', async (
   await page.keyboard.press('Enter');
   await expect(page.locator('#attacker-path details')).toHaveAttribute('open', '');
   await expect(page.locator('#attacker-path details p')).toBeVisible();
-  const networkDetails = page.getByText('Network architecture details and evaluation boundaries', { exact: true });
+  const networkDetails = page.getByText('Network architecture details', { exact: true });
   await networkDetails.focus();
   await page.keyboard.press('Enter');
   await expect(page.locator('#network details p')).toBeVisible();
@@ -208,10 +208,10 @@ test('commercial evidence and deployment boundaries are visible and navigable', 
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
   await expect(page.locator('.commercial-pillars article')).toHaveCount(3);
-  await expect(page.locator('.proof-status')).toHaveText('PROVISIONAL PROTOTYPE CONTENT');
-  await expect(page.locator('.proof-notice')).toContainText('not been independently verified');
+  await expect(page.locator('.proof-grid')).toContainText('CSfC history');
+  await expect(page.locator('.proof-grid')).toContainText('Of protected Top Secret data');
   await expect(page.locator('.research-callout a')).toHaveAttribute('href', 'https://www.fdd.org/analysis/2022/12/16/protecting-and-securing-data-from-the-quantum-threat/');
-  await expect(page.locator('.research-boundary')).toContainText('not a product certification');
+  await expect(page.locator('.research-boundary')).toContainText('Research relates to the evaluated AIA approach');
   await page.locator('.commercial-pillars').getByRole('link', { name: 'Explore deployment' }).click();
   const disclosure = page.getByText('Deployment fit and hardware boundaries', { exact: true });
   await disclosure.focus();
@@ -222,5 +222,35 @@ test('commercial evidence and deployment boundaries are visible and navigable', 
   expect(scan.violations).toEqual([]);
   await page.locator('.commercial-pillars').getByRole('link', { name: 'Explore quantum security' }).click();
   await expect(page).toHaveURL(/\/technology#quantum$/);
-  await expect(page.locator('#quantum')).toContainText('not a claim that every Cyber Reliant implementation is immune');
+  await expect(page.locator('#quantum')).toContainText('within the assumptions of its model');
+});
+
+
+test('partner presentation excludes internal notes and discourages indexing on every page', async ({ page }) => {
+  for (const route of [...routes, '/request-demo?interest=Government', '/request-received', '/missing-page']) {
+    await page.goto(route);
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, nofollow');
+    // textContent also checks collapsed disclosures and hidden mobile navigation.
+    expect(await page.locator('body').textContent()).not.toMatch(/provisional|founder[- ]supplied|await(?:ing)? verification|prototype|internal draft|supporting records|before public launch|not been independently verified/i);
+  }
+});
+
+test('government contact links consistently request a briefing and preserve interest', async ({ page }) => {
+  for (const width of [1440, 768, 390]) {
+    await page.setViewportSize({ width, height: 950 });
+    for (const path of ['/government', '/request-demo?interest=Government']) {
+      await page.goto(path);
+      const links = page.locator('a[href^="/request-demo"]:not([href$="#privacy"])');
+      expect(await links.count()).toBeGreaterThan(0);
+      for (const link of await links.all()) {
+        await expect(link).toHaveText(/Request a briefing/);
+        await expect(link).toHaveAttribute('href', '/request-demo?interest=Government');
+      }
+      expect(await page.locator('body').textContent()).not.toContain('Request a demo');
+    }
+  }
+  await expect(page.locator('#interest')).toHaveValue('Government');
+  await expect(page.locator('.form-card h2')).toHaveText('Request a briefing');
+  await page.goto('/enterprise');
+  await expect(page.locator('.nav-cta')).toContainText('Request a demo');
 });

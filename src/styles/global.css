@@ -188,19 +188,19 @@
 .research-callout h3{font-size:28px;line-height:1.3;letter-spacing:-.025em;margin:15px 0}
 .research-callout p{max-width:900px}
 .research-boundary{font-size:12px;line-height:1.7;margin:20px 0 0;color:#4c6059}
-.provisional-proof{margin-top:42px}
+.company-proof{margin-top:42px}
 .proof-heading{display:flex;justify-content:space-between;gap:20px;align-items:center;flex-wrap:wrap}
 .proof-heading h3{font-size:23px;margin:0}
-.proof-status{font:10px/1.6 var(--mono);letter-spacing:.04em;border:1px solid #758077;padding:7px 10px;color:#344a40}
-.proof-notice{font-size:14px;max-width:840px;line-height:1.7;margin:18px 0 24px}
-.proof-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;border-top:1px solid var(--line);padding-top:26px}
+
+
+.proof-grid{margin-top:24px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;border-top:1px solid var(--line);padding-top:26px}
 .proof-grid h4{font-size:20px;line-height:1.4;font-weight:500;margin:0 0 10px;letter-spacing:-.025em}
 .proof-grid p{font-size:13px;line-height:1.75;margin:0}
-.provisional-proof>.small-note{margin-top:25px}
+.company-proof>.small-note{margin-top:25px}
 .quantum-comparison{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px}
 .quantum-comparison article{padding:30px;border:1px solid var(--line)}
 .quantum-comparison h3,.quantum-explanation h3{font-size:25px;line-height:1.3;letter-spacing:-.025em;margin:18px 0}
 .quantum-explanation{margin:45px 0}
 #deployment>.section>.text-link{margin-top:24px}
 @media(max-width:900px){.commercial-pillars{gap:20px}.commercial-pillars article+article{padding-left:20px}.commercial-pillars h2{font-size:22px}.proof-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.quantum-comparison{gap:20px}.quantum-comparison article{padding:22px}}
-@media(max-width:650px){.hero-positioning{font-size:18px}.commercial-pillars{grid-template-columns:1fr;gap:24px;margin-bottom:40px;padding-block:28px}.commercial-pillars article+article{border-left:0;border-top:1px solid var(--line);padding:24px 0 0}.commercial-pillars h2{font-size:26px}.commercial-pillars p{margin-bottom:10px}.research-callout{padding:25px 22px}.research-callout h3{font-size:25px}.proof-grid,.quantum-comparison{grid-template-columns:1fr}.proof-grid{gap:24px}.proof-grid article+article{border-top:1px solid var(--line);padding-top:22px}.proof-status{font-size:9px}.quantum-explanation{margin:28px 0}}
+@media(max-width:650px){.hero-positioning{font-size:18px}.commercial-pillars{grid-template-columns:1fr;gap:24px;margin-bottom:40px;padding-block:28px}.commercial-pillars article+article{border-left:0;border-top:1px solid var(--line);padding:24px 0 0}.commercial-pillars h2{font-size:26px}.commercial-pillars p{margin-bottom:10px}.research-callout{padding:25px 22px}.research-callout h3{font-size:25px}.proof-grid,.quantum-comparison{grid-template-columns:1fr}.proof-grid{gap:24px}.proof-grid article+article{border-top:1px solid var(--line);padding-top:22px}.quantum-explanation{margin:28px 0}}
