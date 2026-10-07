@@ -1,0 +1,26 @@
+{
+  "name": "cyber-reliant-website",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "ASTRO_TELEMETRY_DISABLED=1 astro dev --host 0.0.0.0",
+    "build": "ASTRO_TELEMETRY_DISABLED=1 astro check && ASTRO_TELEMETRY_DISABLED=1 astro build",
+    "start": "HOST=0.0.0.0 PORT=4321 node ./dist/server/entry.mjs",
+    "test": "playwright test"
+  },
+  "dependencies": {
+    "@astrojs/node": "^9.4.0",
+    "@fontsource-variable/dm-sans": "^5.2.0",
+    "@fontsource-variable/manrope": "^5.2.0",
+    "@fontsource/noto-sans-symbols-2": "^5.3.0",
+    "astro": "^5.13.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@axe-core/playwright": "^4.10.0",
+    "@playwright/test": "^1.55.0",
+    "@types/node": "^24.19.1",
+    "typescript": "^5.9.0"
+  }
+}

@@ -1,0 +1,4 @@
+---
+const {eyebrow,title,text,number='01'}=Astro.props;
+---
+<section class="page-hero"><div class="container"><div class="page-hero-top"><span class="eyebrow">{eyebrow}</span><span class="page-index">CYBER RELIANT / {number}</span></div><h1>{title}</h1><p>{text}</p><slot/></div></section>
