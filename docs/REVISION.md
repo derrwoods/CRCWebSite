@@ -16,3 +16,13 @@ This revision follows the owner's expanded technical brief. It preserves the sev
 The walkthrough's third canonical anchor is now `#separate`. The original `#distribute` deep link remains supported and selects the Separate panel. The same full browser suite is retained; an additional mobile keyboard/accessibility check exercises expanded technical disclosures. The technical comparison table is now a named, focusable scroll region for keyboard access on small screens.
 
 Screenshot generation now refreshes all full desktop/mobile pages, both home hero screenshots, the enterprise exposure illustration and desktop/mobile details of the network and attacker diagrams. See VALIDATION.md for current results.
+
+## Focused home-page overview refinement
+
+The home hero now uses a separate conceptual graphic: protected file fragments and protected key components remain separate, both feed authorized Cyber Reliant reconstruction, and the output is a readable file. The figure's caption links directly to `/technology#network`. It does not include fragmentation/encryption/distribution stages or the key-shredding/HSM sequence.
+
+The detailed network diagram remains on Technology with its existing wording and logical-versus-physical separation qualification. Desktop width and labels were modestly increased for readability. No new cryptographic mechanism or company terminology was introduced. Exact production HSM design and internal product terminology remain unverified.
+
+The home headline, supporting copy, storage-access statements, four-part mechanism, Windows/filter diagrams, attacker-path explanation, page hierarchy, typography and color system are retained. The submitted instructions ended at “WINDOWS / FILTER ARCHITECTURE — Keep”; that content was therefore preserved.
+
+The full browser suite remains intact. `TEST_PORT` can now select a free local port when another server occupies the default 4321, ensuring the checks run against a fresh build without disturbing an existing process.

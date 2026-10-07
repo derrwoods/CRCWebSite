@@ -1,12 +1,12 @@
 # Validation and visual critique
 
-Updated 7 October 2026 for the reconstruction-centered positioning revision, against a fresh local production server.
+Updated 7 October 2026 for the focused home-hero refinement, against a fresh local production server on port 4322.
 
 ## Results
 
 - Frozen installation: `npm ci --cache /workspace/.npm-cache --no-audit --no-fund` passed.
 - Production/type validation: `npm run build` passed with 0 errors, 0 warnings and 0 hints.
-- Browser suite: `CI=true npm test` — **22 passed**, 0 failed, 0 skipped (56.8 seconds).
+- Browser suite: `CI=true TEST_PORT=4322 npm test` — **22 passed**, 0 failed, 0 skipped (1.3 minutes).
 - Browser: real Chromium 151, launched through Playwright.
 - All seven requested pages returned HTTP 200 at 1440, 768, 390 and 320 px widths, without horizontal document overflow or browser console errors.
 - Axe WCAG A/AA automated scans reported zero violations on all seven pages. Automated scanning is not a complete accessibility certification.
@@ -16,6 +16,12 @@ Updated 7 October 2026 for the reconstruction-centered positioning revision, aga
 - A real demo request returned a reference and was verified in the server's JSONL store. The form also works without JavaScript. Invalid input and foreign-origin submissions were rejected. A simulated server failure left entered data intact and displayed an error rather than a success message.
 - The custom 404 returns HTTP 404 and offers a working home link.
 - Regenerated full screenshots for every page on desktop and mobile, both home hero views, the enterprise exposure illustration, and close-ups of the new network and attacker diagrams. Visually reviewed home, network, Windows reconstruction and attacker-path layouts on desktop/mobile.
+
+## Focused home-hero refinement
+
+The home hero now uses the simplified conceptual graphic; the detailed dual-path illustration appears on Technology with more desktop width and larger labels. Home copy, the four-part mechanism, HSM wording and Windows/filter content remain unchanged. The figure link to `/technology#network` is covered by the complete internal-link/fragment-target check. Reduced motion and the new figure's accessibility are covered by the retained suite.
+
+Regenerated desktop/mobile screenshots were reviewed, including the home hero and enlarged Technology diagram. All 22 existing tests passed without dropping checks. The initial attempt could not start because port 4321 was occupied by a pre-existing server; adding an optional `TEST_PORT` setting allowed validation of a fresh server on port 4322 without interfering with that process. Default local development remains on 4321. A final Astro/TypeScript check also passed with zero errors, warnings or hints.
 
 ## Revision issues found and corrected
 

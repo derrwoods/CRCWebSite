@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { readFile, mkdir } from 'node:fs/promises';
+const baseURL = `http://127.0.0.1:${Number(process.env.TEST_PORT || '4321')}`;
 const routes = ['/', '/how-it-works', '/enterprise', '/government', '/technology', '/about', '/request-demo'];
 
 for (const width of [1440, 768, 390, 320]) {
@@ -34,12 +35,12 @@ test('all internal links and fragment targets resolve', async ({ page, request }
   for (const route of routes) {
     await page.goto(route);
     for (const href of await page.locator('a[href]').evaluateAll(nodes => nodes.map(n => n.getAttribute('href')!))) {
-      links.add(new URL(href, 'http://127.0.0.1:4321' + route).href);
+      links.add(new URL(href, baseURL + route).href);
     }
   }
   for (const href of links) {
     const url = new URL(href);
-    if (url.origin !== 'http://127.0.0.1:4321') continue;
+    if (url.origin !== baseURL) continue;
     const response = await request.get(url.pathname + url.search);
     expect(response.status(), href).toBe(200);
     if (url.hash) {
@@ -103,7 +104,7 @@ test('demo form validates and persists a real local request', async ({ page }) =
 });
 
 test('demo API rejects invalid data and cross-origin requests', async ({ request }) => {
-  const invalid = await request.post('/api/demo', { multipart: { email: 'bad', firstName: 'Test' }, headers: { Accept: 'application/json', Origin: 'http://127.0.0.1:4321' } });
+  const invalid = await request.post('/api/demo', { multipart: { email: 'bad', firstName: 'Test' }, headers: { Accept: 'application/json', Origin: baseURL } });
   expect(invalid.status()).toBe(400);
   const foreign = await request.post('/api/demo', { multipart: { firstName: 'Test' }, headers: { Origin: 'https://different.example' } });
   expect(foreign.status()).toBe(403);
@@ -146,7 +147,7 @@ test('capture desktop and mobile pages for visual review', async ({ page }) => {
 test('demo form remains usable without JavaScript', async ({ browser }) => {
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
-  await page.goto('http://127.0.0.1:4321/request-demo');
+  await page.goto(baseURL + '/request-demo');
   await page.getByLabel('First name').fill('NoScript');
   await page.getByLabel('Last name').fill('Evaluator');
   await page.getByLabel('Work email').fill('noscript@example.com');

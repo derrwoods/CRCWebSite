@@ -1,6 +1,6 @@
 # Cyber Reliant
 
-A complete seven-page enterprise cybersecurity marketing website, built with Astro, TypeScript and locally bundled fonts. Custom diagrams distinguish the network file and key paths, Windows reconstruction responsibilities and a conceptual replacement-filter attacker path. A responsive mobile menu, four-step Fragment / Encrypt / Separate / Reconstruct walkthrough, application policy examples and a working local demo-request endpoint are included.
+A complete seven-page enterprise cybersecurity marketing website, built with Astro, TypeScript and locally bundled fonts. The home hero summarizes separate protected file fragments and key components feeding authorized reconstruction. The Technology page contains the detailed network file/key paths, Windows reconstruction responsibilities and a conceptual replacement-filter attacker path. A responsive mobile menu, four-step Fragment / Encrypt / Separate / Reconstruct walkthrough, application policy examples and a working local demo-request endpoint are included.
 
 ## Downloads and screenshots
 
@@ -57,7 +57,7 @@ npm run build
 npm test
 ```
 
-The tests automatically start the compiled server when it is not already running. They check all seven pages at four viewport widths; run axe accessibility checks; follow all internal links and fragment targets; exercise navigation, keyboard behavior, reduced motion, diagram interactions and real form persistence; reject invalid and foreign-origin submissions; check the custom 404; and capture desktop/mobile screenshots.
+The tests automatically start the compiled server when it is not already running. To validate a fresh server on another port, use `CI=true TEST_PORT=4322 npm test`. They check all seven pages at four viewport widths; run axe accessibility checks; follow all internal links and fragment targets; exercise navigation, keyboard behavior, reduced motion, diagram interactions and real form persistence; reject invalid and foreign-origin submissions; check the custom 404; and capture desktop/mobile screenshots.
 
 On this cloud machine tests use `/usr/bin/chromium`. On another machine run `npx playwright install chromium`, or set `PLAYWRIGHT_CHROMIUM_EXECUTABLE` to a compatible browser executable. Install Linux system dependencies if requested by Playwright.
 
