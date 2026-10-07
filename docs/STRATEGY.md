@@ -75,3 +75,12 @@ The mechanism now has four steps: Fragment, Encrypt, Separate, Reconstruct. Sepa
 The Windows story centers on rebuilding, not interception: identify the correct protected fragments, obtain required cryptographic material, decrypt, reconstruct. A separate conceptual attacker illustration shows a malicious/replacement filter reaching storage while distinguishing that reach from the missing information, material and protected processes. The adjacent expandable threat-model note explicitly retains the bypass and kernel-attack qualifications.
 
 Commercial implications: the buyer evaluates the complete path to readable data, rather than a checklist of familiar encryption features. The demonstration agenda, enterprise scenarios and government messaging now follow those paths. Qualifications remain in secondary notes, FAQs and expandable technical sections so they support rather than overwhelm the principal message.
+
+
+## Commercial hierarchy revision — October 2026
+
+Preserve the approved visual system and architecture diagrams. Lead with why the buyer should care: Zero Trust at the data layer, quantum-security readiness, and software deployment that preserves existing investments. Follow with external research and clearly separated provisional company/founder statements. Then explain Fragment / Encrypt / Separate / Reconstruct, deployment fit and the reason for a technical briefing.
+
+The home page follows that hierarchy. Technology adds data-centric protection, explicit Zero Trust boundaries and the FDD-attributed AIA rationale before the preserved Windows, attacker-path and upcoming network diagrams. Enterprise maps the pillars to IP, regulated information, long-lived secrets and the existing stack. Government maps them to sensitive/classified information requirements, quantum migration, constrained mission conditions and implementation evidence.
+
+Keep AIA as FDD research terminology, not a broad product rename. Separate conceptual information-theoretic reasoning from implementation claims; do not treat research as certification or attach the 2022 research to the newer HSM implementation. Maintain visible provisional notices around all founder-supplied operational history. See RESEARCH.md for the source-access limitation and claim ledger. No performance guarantees were added.

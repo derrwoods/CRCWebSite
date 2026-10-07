@@ -1,32 +1,32 @@
-# Vercel deployment validation
+# Commercial positioning validation
 
-Updated 7 October 2026. This is a deployment-only migration of the approved prototype.
+Updated 7 October 2026 for the Zero Trust, quantum-security and software-deployment revision.
 
-## Changes
+## Scope
 
-- Replaced `@astrojs/node` with official `@astrojs/vercel` 8.2.11, compatible with the existing Astro 5.18.2 installation. Kept `output: 'server'` and every page/API route.
-- Removed the standalone Node start command. Pinned Node.js 22 in `.nvmrc` and package engines to match the adapter's supported Vercel runtime. The initial Node 24 build warned that the adapter would fall back to Node 22; rebuilding under Node 22 resolved that warning.
-- Generated Vercel Build Output API v3 configuration, static assets and `_render` function with `nodejs22.x` runtime. The generated route table includes all seven pages, `/api/demo`, the no-JavaScript confirmation and the 404 fallback.
-- Derived trusted deployment hostnames from Vercel's automatic system variables. Same-origin protection remains enabled. No credentials, custom environment variables or third-party services were added.
-- Removed JSONL writes. The demo API validates sample details in memory and returns `saved: false`, `delivery: 'evaluation-only'`. Visible form and confirmation notices explain that no request is saved or sent. Existing ignored local records are not deployed.
+- Preserved the approved palette, typography, shared navigation, responsive system, form behavior and architecture components.
+- Home now leads with three commercial pillars, separates external research from provisional founder statements, explains Zero Trust and quantum exposure, retains Fragment / Encrypt / Separate / Reconstruct, and adds existing-infrastructure deployment guidance.
+- Technology adds data-centric protection, Zero Trust boundaries and the FDD-attributed AIA rationale before the existing Windows, attacker-path and upcoming network sections.
+- Enterprise and Government translate the same pillars into buyer/mission priorities. Government adds constrained/disconnected operation as an evaluation requirement, not a validated deployment claim.
+- HeroDiagram, FileDiagram, WindowsDiagram and AttackerDiagram source files are unchanged. No HSM topology, threshold mechanism, performance benchmark or institutional endorsement was introduced.
+- Vercel SSR configuration and `/api/demo` are unchanged. The form remains evaluation-only with no durable lead capture.
 
-## Results
+## Checks
 
-- Frozen `npm ci` installation passed with the updated lockfile. A fresh build without the hostname fixture also passed; development startup and the compiled function’s default-host API path were smoke-tested successfully.
+- Production Vercel build and Astro/TypeScript checks passed with zero errors, warnings or hints.
+- Full Playwright suite: **24 passed, 0 failed, 0 skipped** in 55.0 seconds, using the compiled Vercel function in the existing local test harness (`CI=true TEST_PORT=4335 npm test`, Node 22).
+- Seven pages returned HTTP 200 at 1440, 768, 390 and 320 px with no horizontal document overflow or browser errors.
+- Axe WCAG 2 A/AA and 2.1 AA scans passed on all seven pages, expanded mobile technical disclosures and the new expanded deployment disclosure. Automated scanning is not a complete accessibility certification.
+- Internal links and fragment targets resolve, including the new quantum, Zero Trust, deployment and evidence anchors. The exact FDD citation URL is checked in the browser suite; external network availability is not established by that check.
+- Mobile navigation, Escape/focus, skip link, reduced motion, mechanism interactions and application policy examples passed.
+- Demo API validation, invalid/foreign-origin rejection, HTTPS origin handling, no-JavaScript submission, simulated failure handling and the custom 404 passed.
+- The additional commercial-content test checks visible provisional labeling, research attribution/certification boundaries and keyboard access to deployment/HSM qualifications.
+- Regenerated all desktop/mobile page screenshots and architecture close-ups. Reviewed the home hero at both sizes, full home and Technology layouts, and mobile evidence/proof content. The first visual review found a missing external-arrow glyph in the new research callout; replacing it with the existing SVG Arrow component resolved it before the final build/test/screenshot run.
 
-- `npm run build` under Node 22.23.3 passed: zero Astro/TypeScript errors, warnings or hints; Vercel build completed successfully.
-- Full production-artifact Playwright suite: **23 passed, 0 failed, 0 skipped**, 58.8 seconds. Command: `VERCEL_URL=cyber-reliant-validation.vercel.app CI=true TEST_PORT=4335 npm test`, following a build with the same fixture hostname.
-- Tests load the actual compiled Vercel function using a local test-only HTTP harness and generated static assets/routes. They do not use the former Node adapter or the development server.
-- All seven pages returned HTTP 200 at 1440, 768, 390 and 320 px, with no horizontal document overflow or browser errors.
-- Axe WCAG 2 A/AA and 2.1 AA scans reported zero violations for all seven pages and expanded mobile technical disclosures. Automated scans are not a complete accessibility certification.
-- Internal links and fragment targets, mobile menu/Escape/focus, skip link, reduced motion, the four-step walkthrough and application-policy controls passed.
-- The real API accepted valid sample input without claiming persistence, rejected invalid and foreign-origin requests, and returned `Cache-Control: no-store`. A Vercel-style HTTPS host passed same-origin validation while a foreign origin returned 403.
-- JavaScript and no-JavaScript form flows passed. Simulated server failure preserved input and displayed an error. The custom 404 returned 404 and its home link worked.
-- Regenerated all 21 desktop/mobile screenshots. Pixel-by-pixel comparison against the approved Git revision found **19 identical images**. Only the two demo-form screenshots differ, reflecting the required evaluation notices. Their dimensions are unchanged: 1440 × 1649 and 390 × 2510. Visually reviewed both updated form screenshots; typography, spacing, input layout and footer placement are preserved.
-- No styles, shared components, diagrams, layouts or product/marketing claims were changed.
+## Evidence boundaries
 
-## Deployment boundary
+FDD’s source URL was blocked by the environment proxy (HTTP 403 tunnel denial). Copy uses the detailed user-supplied summary, with direct attribution and a source link. The original paper was not independently retrieved or checked in this revision. This limitation and the claim-by-claim source ledger are recorded in RESEARCH.md.
 
-Local validation does not verify Vercel's actual CDN, cold starts, deployment protection or distributed rate limiting. No live Vercel deployment was performed. Import the repository using the README instructions, then check the deployed pages and sample form once the deployment is Ready.
+CSfC history, combat deployment, zero-known-breach history, patent-pending TRNG and Lloyd’s-related support are explicitly company/founder-supplied provisional prototype content. All require supporting records and scope/status verification before public launch. No FDD, NSA or Lloyd’s endorsement is asserted. The FDD discussion does not validate the specific upcoming HSM implementation.
 
-This remains an evaluation prototype, not durable lead capture. Real lead collection requires a separately approved persistence/delivery design and privacy/retention policy. Existing product-evidence limitations remain documented in RESEARCH.md; this migration makes no new product claims.
+The source bundle excludes dependencies, generated build output, Vercel local configuration, reports, environment files and old local demo data. Local testing does not verify a live Vercel deployment or its infrastructure. No new service, credential or analytics integration was added.

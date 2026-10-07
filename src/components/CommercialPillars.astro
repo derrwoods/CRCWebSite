@@ -1,0 +1,27 @@
+---
+interface Props { audience?: 'home' | 'enterprise' | 'government'; }
+const { audience = 'home' } = Astro.props;
+const copy = {
+  home: [
+    'Infrastructure access does not automatically become access to protected information.',
+    'An information-theoretic approach designed for a quantum threat that changes conventional encryption assumptions.',
+    'Add data-layer protection to existing environments without a wholesale infrastructure replacement.',
+  ],
+  enterprise: [
+    'Protect sensitive IP and regulated data through an authorized access path, even when surrounding infrastructure is compromised.',
+    'Prepare for harvest-now, decrypt-later risk to information that must remain confidential for years.',
+    'Strengthen protection at the data layer while preserving investments in your existing security stack.',
+  ],
+  government: [
+    'Separate access to mission infrastructure from permission to reconstruct sensitive information.',
+    'Address long-term exposure of classified and sensitive information as quantum computing changes cryptographic assumptions.',
+    'Evaluate software protection within existing mission environments, including constrained operating conditions.',
+  ],
+};
+const labels = ['ZERO TRUST', audience === 'government' ? 'QUANTUM READINESS' : 'QUANTUM SECURITY', 'SOFTWARE DEPLOYMENT'];
+const titles = ['Trust the access decision.', 'Design for the quantum threat.', 'Preserve your infrastructure.'];
+const links = ['/technology#zero-trust', '/technology#quantum', '/#deployment'];
+---
+<section class="commercial-pillars container" aria-label="Three reasons to evaluate Cyber Reliant">
+  {labels.map((label, i) => <article><span class="eyebrow">0{i + 1} / {label}</span><h2>{titles[i]}</h2><p>{copy[audience][i]}</p><a class="text-link" href={links[i]}>Explore {i === 0 ? 'Zero Trust' : i === 1 ? 'quantum security' : 'deployment'} <span aria-hidden="true">→</span></a></article>)}
+</section>

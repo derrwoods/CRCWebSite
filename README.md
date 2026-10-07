@@ -1,6 +1,6 @@
 # Cyber Reliant
 
-A complete seven-page enterprise cybersecurity marketing website, built with Astro, TypeScript and locally bundled fonts. The home hero summarizes separate protected file fragments and key components feeding authorized reconstruction. The Technology page contains the detailed network file/key paths, Windows reconstruction responsibilities and a conceptual replacement-filter attacker path. A responsive mobile menu, four-step Fragment / Encrypt / Separate / Reconstruct walkthrough, application policy examples and a working evaluation-only demo-request endpoint are included.
+A complete seven-page enterprise cybersecurity marketing website, built with Astro, TypeScript and locally bundled fonts. The home page leads with Zero Trust, quantum security and software deployment, followed by attributed research and clearly provisional founder-supplied history. The home hero preserves the separate protected file fragments and key components feeding authorized reconstruction. The Technology page contains the detailed network file/key paths, Windows reconstruction responsibilities and a conceptual replacement-filter attacker path. A responsive mobile menu, four-step Fragment / Encrypt / Separate / Reconstruct walkthrough, application policy examples and a working evaluation-only demo-request endpoint are included.
 
 ## Downloads and screenshots
 
@@ -100,7 +100,7 @@ Official guidance checked for this migration: [Astro Vercel deployment](https://
 - `docs/RESEARCH.md` — Retrieved competitor/NIST sources, claim ledger and research access limitations.
 - `docs/VALIDATION.md` — Final checks, visual review and limitations.
 
-Product-specific statements are based on the project owner's technical brief. The upcoming network version is explicitly distinguished from the described Windows implementation. The site does not invent customers, benchmark numbers, certifications, company history or release dates. The geometric logo is a proposed design, not a verified official asset. Cyber Reliant's public website returned HTTP 503 during research; its existing claims and brand assets remain unverified.
+Product-specific statements are based on the project owner's technical brief. The commercial revision also cites the user-supplied summary of FDD TCIL’s December 2022 AIA research; the source website was blocked by the environment proxy, so its full text has not been independently checked here. Founder-supplied CSfC, combat-deployment, breach-history, patent-pending TRNG and Lloyd’s-related statements are visibly provisional and require verification before public launch. No institutional endorsement is implied. The upcoming network version is explicitly distinguished from the described Windows implementation. The site does not invent customers, benchmark numbers or release dates; provisional history and status claims are attributed to the founder-supplied brief. The geometric logo is a proposed design, not a verified official asset. Cyber Reliant's public website returned HTTP 503 during research; its existing claims and brand assets remain unverified.
 
 ## Cloud setup
 

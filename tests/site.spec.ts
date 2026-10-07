@@ -203,3 +203,24 @@ test('Vercel HTTPS origin validates without saving and rejects foreign origins',
   const foreign = await request.post('/api/demo', { headers: { ...headers, Origin: 'https://foreign.example' }, multipart });
   expect(foreign.status()).toBe(403);
 });
+
+test('commercial evidence and deployment boundaries are visible and navigable', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  await expect(page.locator('.commercial-pillars article')).toHaveCount(3);
+  await expect(page.locator('.proof-status')).toHaveText('PROVISIONAL PROTOTYPE CONTENT');
+  await expect(page.locator('.proof-notice')).toContainText('not been independently verified');
+  await expect(page.locator('.research-callout a')).toHaveAttribute('href', 'https://www.fdd.org/analysis/2022/12/16/protecting-and-securing-data-from-the-quantum-threat/');
+  await expect(page.locator('.research-boundary')).toContainText('not a product certification');
+  await page.locator('.commercial-pillars').getByRole('link', { name: 'Explore deployment' }).click();
+  const disclosure = page.getByText('Deployment fit and hardware boundaries', { exact: true });
+  await disclosure.focus();
+  await page.keyboard.press('Enter');
+  await expect(page.locator('#deployment details')).toHaveAttribute('open', '');
+  await expect(page.locator('#deployment details p')).toContainText('HSM-based key architecture');
+  const scan = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
+  expect(scan.violations).toEqual([]);
+  await page.locator('.commercial-pillars').getByRole('link', { name: 'Explore quantum security' }).click();
+  await expect(page).toHaveURL(/\/technology#quantum$/);
+  await expect(page.locator('#quantum')).toContainText('not a claim that every Cyber Reliant implementation is immune');
+});
